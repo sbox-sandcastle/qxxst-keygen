@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Sandbox Key Generator</title>
+        <meta name="viewport" content="width=device-width">
+        <meta property="og:title" content="Sandbox Key Generator">
+        <meta property="og:description" content="Generate a real sandbox key.">
+        <meta property="og:image" content="https://raw.githubusercontent.com/qxxst/qxxst.github.io/main/docs/images/branding/quest.png">
+        <meta property="og:url" content="https://qxxst.github.io/sandbox-key-generator">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/qxxst/qmcss@v1.3/qm.css">
+        <link rel="stylesheet" type="text/css" href="key.css">
+        <link rel="icon" type="image/x-icon" href="img/favicon/favicon.ico">
+        <script src="https://qxxst.github.io/lib/w3.js"></script>
+        <script src="https://qxxst.github.io/lib/qm.js"></script>
+        <script src="key.js"></script>
+        <audio id="sbox" src="audio/The S&Box Song - Mungus.mp3"></audio>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+            
+            :root, body, #title, footer, button, .w3-button, button:enabled, h2 {
+                font-family: 'Poppins', sans-serif;
+                background-color: #0a0f1a;
+                color: #adb3cb;
+            }
+
+            h2 {
+                color: white;
+            }
+
+            #title {
+                font-weight: bolder;
+            }
+
+            footer {
+                border-top: 1px solid rgba(37,46,63,.8);
+            }
+
+            button, button:enabled {
+                border: 1px solid #adb3cb;
+            }
+
+            #output {
+                background-color: rgba(37,46,63,.2);
+            }
+        </style>
+    </head>
+        <body class="w3-center">
+        <div>
+            <h1 class="qm-no-margin" id="title">Sandbox Key Generator</h1>
+            <div id="content">
+                <p>Click this button to generate a new sandbox key.</p>
+                <button class="w3-button" onclick="generateKey()">Generate</button>
+                <br><br>
+                <ul class="w3-ul w3-border">
+                    <li id="output">Keys will appear here when generated.</li>
+                </ul>
+                <h2>Tips</h2>
+                <ul class="w3-ul">
+                    <li>Due to the number of keys being requested, the site may be unstable. Please be patient.</li>
+                    <li>These keys can only be redeemed on <a href="https://asset.party/~invitecode" target="_blank">the Sandbox website</a>, and will not work on Steam.</li>
+                    <li>All keys expire 14 days after being generated.</li>
+                    <li>Make sure to log into the game at least once every 5 months to avoid losing access.</Li>
+                </ul>
+                <br>
+                <p>Not working? Try  <a href="https://keys.skadz.online/" target="_blank">our other generator</a> instead.</p>
+                <br><br>
+            </div>
+            <p>This product is a work of satire and has no connection to any actual game.</p>
+        </div>
+        <footer>
+            <p class="qm-no-margin">© Qxxst. All rights reserved. All trademarks are property of their respective owners in the United States and other countries.<br><a href="https://github.com/qxxst/sandbox-key-generator?tab=readme-ov-file#credits">Acknowledgements</a></p>
+        </footer>
+    </body>
+</html>
