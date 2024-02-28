@@ -1,18 +1,21 @@
-"use strict";
 let bugged = false;
+
 function getRandomCharacter() {
     const characters = 'ABCDEF0123456789';
     return characters[Math.floor(Math.random() * characters.length)];
 }
+
 function getUniqueCharacter() {
     const character17Elligible = ["8", "B", "A", "9"];
     return character17Elligible[Math.floor(Math.random() * character17Elligible.length)];
 }
-function checkLength(key) {
+
+function checkLength(key: string) {
     const sampleKey = "9737A60D-986B-4009-B759-D97743072D7D";
     const expectedLength = sampleKey.length;
     return key.length == expectedLength;
 }
+
 function realKey() {
     const keys = [
         "C06FDC5C-A5EB-4FA4-88D0-1D82BC09D65E",
@@ -42,10 +45,13 @@ function realKey() {
     ];
     return keys[Math.floor(Math.random() * keys.length)];
 }
-function key(method) {
+
+function key(method: number) {
     let key = "";
+
     if (method == 1) {
         const dash = "-";
+
         for (let i = 0; i < 8; i++) {
             key += getRandomCharacter();
         }
@@ -68,34 +74,39 @@ function key(method) {
             key += getRandomCharacter();
         }
     }
+
     if (method == 2) {
         key = realKey();
     }
+
     if (checkLength(key)) {
         return key;
-    }
-    else {
+    } else {
         throw new Error("Invalid key length.");
     }
 }
-function playSound(id) {
-    const audio = document.getElementById(id);
+
+function playSound(id: string) {
+    const audio = document.getElementById(id) as HTMLAudioElement;
     audio.play();
 }
-function generateKey(method) {
-    const outputField = document.getElementById("output");
+
+function generateKey(method: number) {
+    const outputField = document.getElementById("output") as HTMLElement;
     const weFeelLikeIt = Math.floor(Math.random() * 2) == 1;
     const errorText = "Unable to generate key. Please try again later.";
     const generatingText = "Generating...";
+    
     outputField.innerHTML = generatingText;
+
     let returnText = "";
     if (weFeelLikeIt && bugged == false) {
         returnText = key(method);
-    }
-    else {
+    } else {
         returnText = errorText;
         bugged = true;
     }
+
     setTimeout(() => {
         setTimeout(() => {
             outputField.innerHTML = returnText;
@@ -103,3 +114,4 @@ function generateKey(method) {
         }, (Math.random() * 2) * 1000);
     }, 1000);
 }
+
