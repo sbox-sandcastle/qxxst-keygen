@@ -152,6 +152,7 @@ function generateKey(method) {
     }
     setTimeout(() => {
         setTimeout(() => {
+            document.getElementsByTagName("button")[0].classList.remove("qm-fade-in-out");
             outputField.innerHTML = returnText;
             playSound();
             // document.getElementsByTagName("body")[0].classList.add("qm-fade-in-out");
