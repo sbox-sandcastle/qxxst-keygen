@@ -14,7 +14,18 @@ function checkLength(key) {
     return key.length == expectedLength;
 }
 function realKey() {
-    const keys = [
+    const sampleKeys = [
+        "C9C97725-82EE-94F6-6F1D-CF72BBDA21E4",
+        "520DE514-ED2E-1BBD-08B1-F459BA3B1E3E",
+        "3DBE5467-E9CB-CC9F-1A46-2FC65BC5C50B",
+        "7EFA664D-F23A-AF70-ACEE-00E314055398",
+        "79A75C3B-645E-ADD0-0C3C-6C9257C48570",
+        "617C8B5A-8BB9-0AEF-4C46-87D3544B1111",
+        "52D1A71B-48AC-4F88-1E7C-5C7E28181834",
+        "2FF4AFDE-0E5C-B7DE-BDA9-841C76BDEB2F",
+        "354FFAE7-18C3-07D6-D987-0E61567FDA02",
+        "23769D96-358D-291A-D579-01D32186984C",
+        "6B9B706C-1422-4818-94E6-C36B8E64A539",
         "C06FDC5C-A5EB-4FA4-88D0-1D82BC09D65E",
         "480EB61B-CEFB-49F6-BFC5-68079929233A",
         "A5EC2713-F5B7-43FA-B8CC-41D321381D53",
@@ -40,7 +51,7 @@ function realKey() {
         "1BF8212F-E3DC-460C-A29A-53CE1EA7F88A",
         "9737A60D-986B-4009-B759-D97743072D7D"
     ];
-    return keys[Math.floor(Math.random() * keys.length)];
+    return sampleKeys[Math.floor(Math.random() * sampleKeys.length)];
 }
 function key(method) {
     let key = "";
