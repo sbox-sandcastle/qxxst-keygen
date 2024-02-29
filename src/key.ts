@@ -1,4 +1,5 @@
 let bugged: boolean = false;
+let songID: number = 1;
 
 function getRandomCharacter() {
     const characters: string = 'ABCDEF0123456789';
@@ -97,8 +98,41 @@ function key(method: number) {
     }
 }
 
-function playSound(id: string) {
-    const audio = document.getElementById(id) as HTMLAudioElement;
+function getSong() {
+    const apiURL: string = "https://co.wuk.sh/api/json";
+    const songs: string[] = [
+        "https://www.youtube.com/watch?v=HDIapOhV1FM", // The S&box Song
+        "https://www.youtube.com/watch?v=JpvDz9ZElUY", // The S&box Song 2 (ft. Rick and Morty)
+        "https://www.youtube.com/watch?v=MoypGwGuY04", // The S&box Song - at 3 AM
+        "https://www.youtube.com/watch?v=TRNoQ_RYhko", // IT'S TIME FOR THE S&BOX NEWS! (Song)
+        "https://www.youtube.com/watch?v=hUqvo7NJRCQ" // S&BOX (Sandbox Song) - Aryan Shaim (original by Mungus)
+    ];
+    songID = Math.floor(Math.random() * songs.length);
+    const songUrl = songs[songID];
+
+    const postData = {
+        url: songUrl,
+        isAudioOnly: true
+    };
+    const options = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+    };
+    
+    return fetch(apiURL, options)
+    .then(response => response.json())
+    .then(data => {
+        const audio = new Audio(data.url);
+        return audio;
+    });
+}
+
+async function playSound() {
+    const audio: any = await getSong();
     audio.play();
 }
 
@@ -109,6 +143,7 @@ function generateKey(method: number) {
     const generatingText: string = "Generating...";
     
     outputField.innerHTML = generatingText;
+    document.getElementsByTagName("button")[0].classList.add("qm-fade-in-out");
 
     let returnText: string = "";
     if (weFeelLikeIt && bugged == false) {
@@ -121,7 +156,8 @@ function generateKey(method: number) {
     setTimeout(() => {
         setTimeout(() => {
             outputField.innerHTML = returnText;
-            playSound("sbox");
+            playSound();
+            // document.getElementsByTagName("body")[0].classList.add("qm-fade-in-out");
         }, (Math.random() * 2) * 1000);
     }, 1000);
 }

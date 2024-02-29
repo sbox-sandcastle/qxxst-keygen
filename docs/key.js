@@ -1,5 +1,15 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 let bugged = false;
+let songID = 1;
 function getRandomCharacter() {
     const characters = 'ABCDEF0123456789';
     return characters[Math.floor(Math.random() * characters.length)];
@@ -89,9 +99,41 @@ function key(method) {
         throw new Error("Invalid key length.");
     }
 }
-function playSound(id) {
-    const audio = document.getElementById(id);
-    audio.play();
+function getSong() {
+    const apiURL = "https://co.wuk.sh/api/json";
+    const songs = [
+        "https://www.youtube.com/watch?v=HDIapOhV1FM", // The S&box Song
+        "https://www.youtube.com/watch?v=JpvDz9ZElUY", // The S&box Song 2 (ft. Rick and Morty)
+        "https://www.youtube.com/watch?v=MoypGwGuY04", // The S&box Song - at 3 AM
+        "https://www.youtube.com/watch?v=TRNoQ_RYhko", // IT'S TIME FOR THE S&BOX NEWS! (Song)
+        "https://www.youtube.com/watch?v=hUqvo7NJRCQ" // S&BOX (Sandbox Song) - Aryan Shaim (original by Mungus)
+    ];
+    songID = Math.floor(Math.random() * songs.length);
+    const songUrl = songs[songID];
+    const postData = {
+        url: songUrl,
+        isAudioOnly: true
+    };
+    const options = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+    };
+    return fetch(apiURL, options)
+        .then(response => response.json())
+        .then(data => {
+        const audio = new Audio(data.url);
+        return audio;
+    });
+}
+function playSound() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const audio = yield getSong();
+        audio.play();
+    });
 }
 function generateKey(method) {
     const outputField = document.getElementById("output");
@@ -99,6 +141,7 @@ function generateKey(method) {
     const errorText = "Unable to generate key. Please try again later.";
     const generatingText = "Generating...";
     outputField.innerHTML = generatingText;
+    document.getElementsByTagName("button")[0].classList.add("qm-fade-in-out");
     let returnText = "";
     if (weFeelLikeIt && bugged == false) {
         returnText = key(method);
@@ -110,7 +153,8 @@ function generateKey(method) {
     setTimeout(() => {
         setTimeout(() => {
             outputField.innerHTML = returnText;
-            playSound("sbox");
+            playSound();
+            // document.getElementsByTagName("body")[0].classList.add("qm-fade-in-out");
         }, (Math.random() * 2) * 1000);
     }, 1000);
 }
