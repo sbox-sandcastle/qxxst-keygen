@@ -11,7 +11,6 @@ Build using the following instructions, or use the hosted version at https://sbo
 5. Open `index.html` in your browser.
 ## Credits
 <a href="https://github.com/sbox-sandcastle/qxxst-keygen/graphs/contributors"><img src="https://contrib.rocks/image?repo=sbox-sandcastle/qxxst-keygen"></a>
-- W3.CSS and W3.JS by w3schools.com.
 - Poppins by Google Fonts.
 - [The S&box Song](https://www.youtube.com/watch?v=HDIapOhV1FM) by Mungus.
 - Key icon by favicon.io.
