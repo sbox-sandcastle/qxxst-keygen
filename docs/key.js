@@ -9,6 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 let bugged = false;
+let rateLimited = false;
+let canBeRateLimited = false;
 let songID = 1;
 function getRandomCharacter() {
     const characters = 'ABCDEF0123456789';
@@ -135,27 +137,52 @@ function playSound() {
         audio.play();
     });
 }
+function applyRateLimit() {
+    const outputField = document.getElementById("output");
+    const generateButton = document.getElementById("generateButton");
+    const rateLimitText = "You are being rate limited.";
+    rateLimited = true;
+    outputField.innerHTML = rateLimitText;
+    generateButton.disabled = true;
+}
 function generateKey(method) {
     const outputField = document.getElementById("output");
-    const weFeelLikeIt = Math.floor(Math.random() * 2) == 1;
-    const errorText = "Unable to generate key. Please try again later.";
-    const generatingText = "Generating...";
-    outputField.innerHTML = generatingText;
-    document.getElementsByTagName("button")[0].classList.add("qm-fade-in-out");
-    let returnText = "";
-    if (weFeelLikeIt && bugged == false) {
-        returnText = key(method);
+    const generateButton = document.getElementById("generateButton");
+    if (!rateLimited) {
+        if (!canBeRateLimited) {
+            const weFeelLikeIt = Math.floor(Math.random() * 2) == 1;
+            const errorText = "Unable to generate key. Please try again later.";
+            const generatingText = "Generating...";
+            outputField.innerHTML = generatingText;
+            document.getElementsByTagName("button")[0].classList.add("qm-fade-in-out");
+            let returnText = "";
+            if (weFeelLikeIt && bugged == false) {
+                returnText = key(method);
+            }
+            else {
+                returnText = errorText;
+                bugged = true;
+            }
+            canBeRateLimited = true;
+            setTimeout(() => {
+                setTimeout(() => {
+                    if (generateButton !== null) {
+                        generateButton.classList.remove("qm-fade-in-out");
+                    }
+                    if (!rateLimited) {
+                        outputField.innerHTML = returnText;
+                        playSound();
+                        // document.getElementsByTagName("body")[0].classList.add("qm-fade-in-out");
+                        canBeRateLimited = false;
+                    }
+                }, (Math.random() * 2) * 1000);
+            }, 1000);
+        }
+        else {
+            applyRateLimit();
+        }
     }
     else {
-        returnText = errorText;
-        bugged = true;
+        applyRateLimit();
     }
-    setTimeout(() => {
-        setTimeout(() => {
-            document.getElementsByTagName("button")[0].classList.remove("qm-fade-in-out");
-            outputField.innerHTML = returnText;
-            playSound();
-            // document.getElementsByTagName("body")[0].classList.add("qm-fade-in-out");
-        }, (Math.random() * 2) * 1000);
-    }, 1000);
 }

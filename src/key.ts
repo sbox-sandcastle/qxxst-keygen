@@ -1,4 +1,6 @@
 let bugged: boolean = false;
+let rateLimited: boolean = false;
+let canBeRateLimited: boolean = false;
 let songID: number = 1;
 
 function getRandomCharacter() {
@@ -136,29 +138,56 @@ async function playSound() {
     audio.play();
 }
 
+function applyRateLimit() {
+    const outputField = document.getElementById("output") as HTMLElement;
+    const generateButton = document.getElementById("generateButton") as HTMLButtonElement;
+
+    const rateLimitText: string = "You are being rate limited.";
+
+    rateLimited = true;
+    outputField.innerHTML = rateLimitText;
+    generateButton.disabled = true;
+}
+
 function generateKey(method: number) {
     const outputField = document.getElementById("output") as HTMLElement;
-    const weFeelLikeIt: boolean = Math.floor(Math.random() * 2) == 1;
-    const errorText: string = "Unable to generate key. Please try again later.";
-    const generatingText: string = "Generating...";
-    
-    outputField.innerHTML = generatingText;
-    document.getElementsByTagName("button")[0].classList.add("qm-fade-in-out");
+    const generateButton = document.getElementById("generateButton") as HTMLButtonElement;
 
-    let returnText: string = "";
-    if (weFeelLikeIt && bugged == false) {
-        returnText = key(method);
+    if (!rateLimited) {
+        if (!canBeRateLimited) {
+            const weFeelLikeIt: boolean = Math.floor(Math.random() * 2) == 1;
+            const errorText: string = "Unable to generate key. Please try again later.";
+            const generatingText: string = "Generating...";
+            
+            outputField.innerHTML = generatingText;
+            document.getElementsByTagName("button")[0].classList.add("qm-fade-in-out");
+
+            let returnText: string = "";
+            if (weFeelLikeIt && bugged == false) {
+                returnText = key(method);
+            } else {
+                returnText = errorText;
+                bugged = true;
+            }
+
+            canBeRateLimited = true;
+            setTimeout(() => {
+                setTimeout(() => {
+                    if (generateButton !== null) {
+                        generateButton.classList.remove("qm-fade-in-out");
+                    }
+                    if (!rateLimited) {
+                        outputField.innerHTML = returnText;
+                        playSound();
+                        // document.getElementsByTagName("body")[0].classList.add("qm-fade-in-out");
+                        canBeRateLimited = false;
+                    }
+                }, (Math.random() * 2) * 1000);
+            }, 1000);
+        } else {
+            applyRateLimit();
+        }
     } else {
-        returnText = errorText;
-        bugged = true;
+        applyRateLimit();
     }
-
-    setTimeout(() => {
-        setTimeout(() => {
-            document.getElementsByTagName("button")[0].classList.remove("qm-fade-in-out");
-            outputField.innerHTML = returnText;
-            playSound();
-            // document.getElementsByTagName("body")[0].classList.add("qm-fade-in-out");
-        }, (Math.random() * 2) * 1000);
-    }, 1000);
 }
