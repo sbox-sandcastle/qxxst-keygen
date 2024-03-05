@@ -1,4 +1,3 @@
-let bugged: boolean = false;
 let rateLimited: boolean = false;
 let canBeRateLimited: boolean = false;
 let songID: number = 1;
@@ -134,6 +133,7 @@ function getSong() {
 
 async function playSound() {
     const audio: any = await getSong();
+    audio.volume = 0.1;
     audio.play();
 }
 
@@ -162,11 +162,10 @@ function generateKey(method: number) {
             document.getElementsByTagName("button")[0].classList.add("qm-fade-in-out");
 
             let returnText: string = "";
-            if (weFeelLikeIt && bugged == false) {
+            if (weFeelLikeIt) {
                 returnText = key(method);
             } else {
                 returnText = errorText;
-                bugged = true;
             }
 
             canBeRateLimited = true;

@@ -8,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-let bugged = false;
 let rateLimited = false;
 let canBeRateLimited = false;
 let songID = 1;
@@ -133,6 +132,7 @@ function getSong() {
 function playSound() {
     return __awaiter(this, void 0, void 0, function* () {
         const audio = yield getSong();
+        audio.volume = 0.1;
         audio.play();
     });
 }
@@ -155,12 +155,11 @@ function generateKey(method) {
             outputField.innerHTML = generatingText;
             document.getElementsByTagName("button")[0].classList.add("qm-fade-in-out");
             let returnText = "";
-            if (weFeelLikeIt && bugged == false) {
+            if (weFeelLikeIt) {
                 returnText = key(method);
             }
             else {
                 returnText = errorText;
-                bugged = true;
             }
             canBeRateLimited = true;
             setTimeout(() => {
