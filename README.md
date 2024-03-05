@@ -2,8 +2,6 @@
 A website for generating totally real sandbox keys. Now uses TypeScript so I can pretend I know what I'm doing.
 
 This key generator is 100 times more advanced than [Skadz's implementation](https://keys.skadz.online/)... or anyone else's, for that matter.
-
-This product is a work of satire and has no connection to any actual game.
 ## Usage
 Build using the following instructions, or use the hosted version at [https://sbox-sandcastle.github.io/qxxst-keygen](https://sbox-sandcastle.github.io/qxxst-keygen).
 1. Clone the repository.
