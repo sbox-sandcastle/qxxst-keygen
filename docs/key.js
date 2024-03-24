@@ -106,13 +106,13 @@ function generateKey() {
     const generateButton = document.getElementById("generateButton");
     if (!rateLimited) {
         if (!canBeRateLimited) {
-            const weFeelLikeIt = Math.floor(Math.random() * 2) == 1;
+            const weDontFeelLikeIt = Math.floor(Math.random() * 3) == 1;
             const errorText = "Unable to generate key. Please try again later.";
             const generatingText = "Generating...";
             outputField.innerHTML = generatingText;
             document.getElementsByTagName("button")[0].classList.add("qm-fade-in-out");
             let returnText = "";
-            if (weFeelLikeIt) {
+            if (!weDontFeelLikeIt) {
                 returnText = key();
             }
             else {
