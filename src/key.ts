@@ -55,10 +55,12 @@ function key(): string {
 function getSong() {
     const apiURL: string = "https://co.wuk.sh/api/json";
     const songs: string[] = [
-        "https://www.youtube.com/watch?v=HDIapOhV1FM", // The S&box Song
+        /* "https://www.youtube.com/watch?v=HDIapOhV1FM", // The S&box Song
         "https://www.youtube.com/watch?v=JpvDz9ZElUY", // The S&box Song 2 (ft. Rick and Morty)
         "https://www.youtube.com/watch?v=MoypGwGuY04", // The S&box Song - at 3 AM
-        "https://www.youtube.com/watch?v=TRNoQ_RYhko" // IT'S TIME FOR THE S&BOX NEWS! (Song)
+        "https://www.youtube.com/watch?v=TRNoQ_RYhko", // IT'S TIME FOR THE S&BOX NEWS! (Song) */
+        "https://youtube.com/watch?v=Ih4w_JsZKfA", // S&Box Keygen AI Rap (Unlock The Game)
+        "https://youtube.com/watch?v=gGKcwfkETbs" // S&Box Key Denier AI Rap (Unlock The Game 2)
     ];
     songID = Math.floor(Math.random() * songs.length);
     const songUrl = songs[songID];
