@@ -44,3 +44,7 @@ button, button:enabled {
 .w3-ul li {
     border-bottom: 2px solid white;
 }
+
+#funny-text {
+    display: none;
+}

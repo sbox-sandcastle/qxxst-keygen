@@ -10,6 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 let rateLimited = false;
 let canBeRateLimited = false;
+let currentSong = null;
+let currentAuthor = null;
 function getRandomCharacter() {
     const characters = 'ABCDEF0123456789';
     return characters[Math.floor(Math.random() * characters.length)];
@@ -80,10 +82,32 @@ function getSong() {
             author: rappers.qxxst,
             url: "https://streamable.com/0y951d",
         },
+        7: {
+            title: "s&box cypher",
+            author: rappers.skadz,
+            url: "https://www.youtube.com/watch?v=l9nzt1KFcDw",
+        },
+        8: {
+            title: "s&box cypher (Alternative Version)",
+            author: rappers.skadz,
+            url: "https://www.youtube.com/watch?v=7blBy3NdoNo",
+        },
+        9: {
+            title: "Key Master",
+            author: rappers.skadz,
+            url: "https://www.youtube.com/watch?v=RYyBz6E5B4o",
+        },
+        10: {
+            title: "Need That Key",
+            author: rappers.skadz,
+            url: "https://www.youtube.com/watch?v=q_p-V9stR-E",
+        },
     };
-    const currentSongIDs = [4, 5, 6];
-    let randomIndex = Math.floor(Math.random() * currentSongIDs.length);
-    let songID = currentSongIDs[randomIndex];
+    const currentPool = [4, 5, 6, 7, 8, 9, 10];
+    let randomIndex = Math.floor(Math.random() * currentPool.length);
+    let songID = currentPool[randomIndex];
+    currentSong = songs[songID].title;
+    currentAuthor = songs[songID].author;
     let songUrl = songs[songID].url;
     let postData = {
         url: songUrl,
@@ -122,6 +146,7 @@ function applyRateLimit() {
 function generateKey() {
     const outputField = document.getElementById("output");
     const generateButton = document.getElementById("generateButton");
+    const funnyText = document.getElementById("funny-text");
     if (!rateLimited) {
         if (!canBeRateLimited) {
             const weDontFeelLikeIt = Math.floor(Math.random() * 3) == 1;
@@ -145,8 +170,9 @@ function generateKey() {
                     if (!rateLimited) {
                         outputField.innerHTML = returnText;
                         playSound();
-                        // document.getElementsByTagName("body")[0].classList.add("qm-fade-in-out");
                         canBeRateLimited = false;
+                        funnyText.style.display = "block";
+                        funnyText.innerHTML = `Now playing: ${currentSong} by ${currentAuthor}`;
                     }
                 }, (Math.random() * 2) * 1000);
             }, 1000);
