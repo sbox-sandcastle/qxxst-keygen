@@ -139,9 +139,11 @@ function applyRateLimit() {
     const outputField = document.getElementById("output");
     const generateButton = document.getElementById("generateButton");
     const rateLimitText = "You are being rate limited.";
-    rateLimited = true;
-    outputField.innerHTML = rateLimitText;
-    generateButton.disabled = true;
+    setTimeout(() => {
+        rateLimited = true;
+        outputField.innerHTML = rateLimitText;
+        generateButton.disabled = true;
+    }, 300);
 }
 function generateKey() {
     const outputField = document.getElementById("output");
