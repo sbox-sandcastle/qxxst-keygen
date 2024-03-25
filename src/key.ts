@@ -1,6 +1,5 @@
 let rateLimited: boolean = false;
 let canBeRateLimited: boolean = false;
-let songID: number = 1;
 
 function getRandomCharacter() {
     const characters: string = 'ABCDEF0123456789';
@@ -53,19 +52,42 @@ function key(): string {
 }
 
 function getSong() {
-    const apiURL: string = "https://co.wuk.sh/api/json";
-    const songs: string[] = [
-        /* "https://www.youtube.com/watch?v=HDIapOhV1FM", // The S&box Song
-        "https://www.youtube.com/watch?v=JpvDz9ZElUY", // The S&box Song 2 (ft. Rick and Morty)
-        "https://www.youtube.com/watch?v=MoypGwGuY04", // The S&box Song - at 3 AM
-        "https://www.youtube.com/watch?v=TRNoQ_RYhko", // IT'S TIME FOR THE S&BOX NEWS! (Song) */
-        "https://youtube.com/watch?v=Ih4w_JsZKfA", // S&Box Keygen AI Rap (Unlock The Game)
-        "https://youtube.com/watch?v=gGKcwfkETbs" // S&Box Key Denier AI Rap (Unlock The Game 2)
-    ];
-    songID = Math.floor(Math.random() * songs.length);
-    const songUrl = songs[songID];
+    const rappers: { [key: string]: string } = {
+        qxxst: "50 Qxxst",
+        skadz: "Skadz the Rapper",
+    }
 
-    const postData = {
+    const apiURL: string = "https://co.wuk.sh/api/json";
+
+    /* "https://www.youtube.com/watch?v=HDIapOhV1FM", // The S&box Song
+    "https://www.youtube.com/watch?v=JpvDz9ZElUY", // The S&box Song 2 (ft. Rick and Morty)
+    "https://www.youtube.com/watch?v=MoypGwGuY04", // The S&box Song - at 3 AM
+    "https://www.youtube.com/watch?v=TRNoQ_RYhko", // IT'S TIME FOR THE S&BOX NEWS! (Song) */
+
+    const songs: { [key: number]: { title: string, author: string, url: string } } = {
+        4: {
+            title: "Unlock The Game",
+            author: rappers.skadz,
+            url: "https://youtube.com/watch?v=Ih4w_JsZKfA",
+        },
+        5: {
+            title: "Unlock The Game 2",
+            author: rappers.skadz,
+            url: "https://youtube.com/watch?v=gGKcwfkETbs",
+        },
+        6: {
+            title: "Sandbox Millionaire",
+            author: rappers.qxxst,
+            url: "https://streamable.com/0y951d",
+        },
+    };
+
+    const currentSongIDs = [4, 5, 6];
+    let randomIndex = Math.floor(Math.random() * currentSongIDs.length);
+    let songID = currentSongIDs[randomIndex];
+    let songUrl = songs[songID].url as string;
+
+    let postData = {
         url: songUrl,
         isAudioOnly: true
     };
