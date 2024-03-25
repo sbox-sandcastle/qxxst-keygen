@@ -62,12 +62,22 @@ function getSong() {
 
     const apiURL: string = "https://co.wuk.sh/api/json";
 
-    /* "https://www.youtube.com/watch?v=HDIapOhV1FM", // The S&box Song
-    "https://www.youtube.com/watch?v=JpvDz9ZElUY", // The S&box Song 2 (ft. Rick and Morty)
-    "https://www.youtube.com/watch?v=MoypGwGuY04", // The S&box Song - at 3 AM
-    "https://www.youtube.com/watch?v=TRNoQ_RYhko", // IT'S TIME FOR THE S&BOX NEWS! (Song) */
-
     const songs: { [key: number]: { title: string, author: string, url: string } } = {
+        1: {
+            title: "The S&box Song",
+            author: "Mungus",
+            url: "https://www.youtube.com/watch?v=HDIapOhV1FM",
+        },
+        2: {
+            title: "The S&box Song 2",
+            author: "Mungus ft. Rick and Morty",
+            url: "https://www.youtube.com/watch?v=JpvDz9ZElUY",
+        },
+        3: {
+            title: "IT'S TIME FOR THE S&BOX NEWS!",
+            author: "Aidan Kelley",
+            url: "https://www.youtube.com/watch?v=TRNoQ_RYhko",
+        },
         4: {
             title: "Unlock The Game",
             author: rappers.skadz,
@@ -105,7 +115,7 @@ function getSong() {
         },
     };
 
-    const currentPool: number[] = [4, 5, 6, 7, 8, 9, 10];
+    const currentPool: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     let randomIndex = Math.floor(Math.random() * currentPool.length);
     let songID = currentPool[randomIndex];
     currentSong = songs[songID].title;
