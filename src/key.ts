@@ -157,19 +157,13 @@ function generateKey() {
 
     if (!rateLimited) {
         if (!canBeRateLimited) {
-            const weDontFeelLikeIt: boolean = Math.floor(Math.random() * 3) == 1;
-            const errorText: string = "Unable to generate key. Please try again later.";
             const generatingText: string = "Generating...";
             
             outputField.innerHTML = generatingText;
             document.getElementsByTagName("button")[0].classList.add("qm-fade-in-out");
 
             let returnText: string = "";
-            if (!weDontFeelLikeIt) {
-                returnText = key();
-            } else {
-                returnText = errorText;
-            }
+            returnText = key();
 
             canBeRateLimited = true;
             setTimeout(() => {
